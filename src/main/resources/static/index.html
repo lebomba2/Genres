@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Genres</title>
+    <link rel="stylesheet" href="genre.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<nav>
+    <a href="./index.html">Home</a>
+    <a href="./add.html">Add</a>
+    <a href="./update.html">Update</a>
+    <a href="./delete.html">Delete</a>
+</nav>
+<h2>Genres</h2>
+<span id="stuff"></span>
+<script>
+    // get the request in XML format
+    var xmlhttp = new XMLHttpRequest();
+    // check state in request, run function
+    xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+        // JSON is an object represented in text with tags
+        // parsing JSON returns an object
+        var myObj = JSON.parse(this.responseText);
+        // build the table for output
+        var content = "<table>";
+        for (var property in myObj) {
+            if (myObj.hasOwnProperty(property)) {
+                content += "<tr><td>" + myObj[property].genreName + "</td><td>" + myObj[property].rating +
+                    "</td></tr>";
+            }
+        }
+        content += "</table>"
+        // get the element and replace the html with the table built above
+        document.getElementById("stuff").innerHTML = content;
+    }
+};
+xmlhttp.open("GET", "/Genres", true);
+xmlhttp.send();
+</script>
+<h3>Genre</h3>
+<span id="genres"></span>
+<script>
+    // get the request in XML format
+    var xmlhttp2 = new XMLHttpRequest();
+    // check state in request, run function
+    xmlhttp2.onreadystatechange = function () {
+
+        if (this.readyState == 4 && this.status == 200) {
+            // JSON is an object represented in text with tags
+            // parsing JSON returns an object
+            var myObj = JSON.parse(this.responseText);
+            // build the table for output
+            var content = "<table>";
+            content += "<tr><td>" + myObj.genreName + "</td><td>" + myObj.rating +
+                        "</td></tr>";
+            content += "</table>"
+            // get the element and replace the html with the table built above
+            document.getElementById("genres").innerHTML = content;
+        }
+    };
+    xmlhttp2.open("GET", "/Genres/Horror", true);
+    xmlhttp2.send();
+</script>
+
+
+</body>

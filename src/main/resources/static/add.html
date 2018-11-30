@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teams</title>
+    <link rel="stylesheet" href="genre.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<nav>
+    <a href="./index.html">Home</a>
+    <a href="./add.html">Add</a>
+    <a href="./update.html">Update</a>
+    <a href="./delete.html">Delete</a>
+</nav>
+<form id="theGenre">
+    <div><input type="text" name="genreName" id="genreName"></div>
+    <div><input type="text" name="rating" id="rating"></div>
+    <div>
+        <button type="button" id="addGenre">AdGenre</button>
+    </div>
+</form>
+<script>
+    $( "#addGenre" ).on("click" ,function( event ) {
+        var finishedMessage="{";
+        var message = $( "#theGenre" ).serializeArray();
+        $.each(message,function (i,field) {
+            finishedMessage+="\"" + field.name + "\":\"" + field.value + "\",";
+        });
+        finishedMessage =finishedMessage.substring(0,finishedMessage.length - 1) + "}";
+        var oReq = new XMLHttpRequest();
+        oReq.open("POST", "/Genres");
+        oReq.setRequestHeader("Content-Type", "application/json");
+        oReq.send(finishedMessage);
+    });
+</script>
+
+<!--<h1>Add</h1>-->
+<!--<form id="addGenreForm">-->
+    <!--<label>Genre Name to Add</label>-->
+    <!--<div><input type="text" name="genreNameToAdd" id="genreNameToAdd"></div>-->
+    <!--<label>Genre Rating to Add</label>-->
+    <!--<div><input type="text" name="ratingToAdd" id="ratingToAdd"></div>-->
+    <!--<div>-->
+        <!--<button type="button" id="addGenreButton">Add Genre</button>-->
+    <!--</div>-->
+<!--</form>-->
+<!--<script>-->
+    <!--$( "#addGenreButton" ).on("click" ,function( event ) {-->
+        <!--var finishedMessage="{";-->
+        <!--var message = $( "#addGenreForm" ).serializeArray();-->
+        <!--$.each(message,function (i,field) {-->
+            <!--finishedMessage+="\"" + field.name + "\":\"" + field.value + "\",";-->
+        <!--});-->
+        <!--finishedMessage = finishedMessage.substring(0,finishedMessage.length - 1) + "}";-->
+        <!--var oReq = new XMLHttpRequest();-->
+        <!--oReq.open("POST", "/Genres");-->
+        <!--oReq.setRequestHeader("Content-Type", "application/json");-->
+        <!--oReq.send(finishedMessage);-->
+    <!--});-->
+<!--</script>-->
+</body>
+</html>

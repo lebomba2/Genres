@@ -1,0 +1,9 @@
+input {
+    border-width: 5px;
+    border-color: black;
+    margin: 2px;
+}
+
+button {
+    cursor: pointer;
+}
